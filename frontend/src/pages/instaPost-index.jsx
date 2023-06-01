@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { loadInstaPosts, addInstaPost, updateInstaPost, removeInstaPost } from '../store/instaPost.actions.js'
-// import {InstaPostList} from '../cmps/instaPost-list.jsx'
+
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { instaPostService } from '../services/instaPost.service.js'
-import { InstaPostList } from '../cmps/instaPost-list.jsx'
 
-export function HomePage() {
+export function InstaPostIndex() {
 
     const instaPosts = useSelector(storeState => storeState.instaPostModule.instaPosts)
 
@@ -58,16 +57,16 @@ export function HomePage() {
                 <ul className="instaPost-list">
                     {instaPosts.map(instaPost =>
                         <li className="instaPost-preview" key={instaPost._id}>
-                            <InstaPostList instaPosts={instaPosts} onRemoveInstaPost={onRemoveInstaPost}  />
-
-                            {/* <h4>{instaPost.vendor}</h4>
+                            <h4>{instaPost.vendor}</h4>
+                            <h1>⛐</h1>
                             <p>Price: <span>${instaPost.price.toLocaleString()}</span></p>
                             <p>Owner: <span>{instaPost.owner && instaPost.owner.fullname}</span></p>
                             <div>
                                 <button onClick={() => { onRemoveInstaPost(instaPost._id) }}>x</button>
                                 <button onClick={() => { onUpdateInstaPost(instaPost) }}>Edit</button>
                             </div>
-                            <button onClick={() => { onAddInstaPostMsg(instaPost) }}>Add instaPost msg</button> */}
+
+                            <button onClick={() => { onAddInstaPostMsg(instaPost) }}>Add instaPost msg</button>
                         </li>)
                     }
                 </ul>
