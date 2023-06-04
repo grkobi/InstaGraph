@@ -1,4 +1,4 @@
-import { carService } from './services/car.service.js'
+import { carService } from './services/story.service.js'
 import { userService } from './services/user.service.js'
 import { utilService } from './services/util.service.js'
 
@@ -11,9 +11,9 @@ window.onGetCarById = onGetCarById
 window.onRemoveCar = onRemoveCar
 window.onAddCarMsg = onAddCarMsg
 
-async function onLoadCars() {
-    const cars = await carService.query()
-    render('Cars', cars)
+async function onLoadStories() {
+    const stories = await storyService.query()
+    render('Stories', stories)
 }
 async function onLoadUsers() {
     const users = await userService.query()
