@@ -1,0 +1,16 @@
+.story-list {
+    padding: 0 100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80%;
+     // display: flex;
+    // justify-content: space-between;
+
+
+
+
+    .suggestions {
+        grid-area: "suggestions";
+        background-color: lightcoral;
+    }
+}

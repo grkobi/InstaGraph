@@ -31,7 +31,7 @@ export function UserDetails() {
 
   return (
     <section className="user-details">
-      <h1>User Details</h1>
+      <h1 className='details-title'>User Details</h1>
       {user && <div>
         <h3>
           {user.fullname}

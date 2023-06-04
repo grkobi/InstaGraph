@@ -1,5 +1,6 @@
 import { storageService } from './async-storage.service'
 import { httpService } from './http.service'
+import { utilService } from './util.service.js'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -13,21 +14,73 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
+    getEmptyUser,
+    filterUsers
 }
 
 window.userService = userService
 
 
-function getUsers() {
-    return storageService.query('user')
+
+const user = {
+    _id: "u101",
+    username: "Muko",
+    password: "mukmuk",
+    fullname: "Muki Muka",
+    imgUrl: "http://some-img",
+    following: [
+      {
+        _id: "u106",
+        fullname: "Dob",
+        imgUrl: "http://some-img"
+      }
+    ],
+    followers: [
+      {
+        _id: "u105",
+        fullname: "Bob",
+        imgUrl: "http://some-img"
+      }
+    ],
+    savedStoryIds: ["s104", "s111", "s123"]
+  }
+
+  _createUser()
+
+  function _createUser() {
+    let users = utilService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
+    if (!users || !users.length) {
+        utilService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, user)
+    }
+  }
+
+function getUsers(filterBy = { txt: '' }) {
+    //     var users = storageService.query('user').then(users => users)
+    // if (filterBy.txt) {
+    //     const regex = new RegExp(filterBy.txt, 'i')
+    //     users = users.filter(user => {
+    //         return regex.test(user.username)
+    //     })
+    //     // users = users.filter(user => regex.test(user.unername) || regex.test(car.description))
+    // }
+    // return users
+    console.log('get logged in user', storageService.query(STORAGE_KEY_LOGGEDIN_USER))
+    return storageService.query(STORAGE_KEY_LOGGEDIN_USER)
     // return httpService.get(`user`)
 }
 
-
+function filterUsers(filterBy, users) {
+    if (!users.length) return
+    const regex = new RegExp(filterBy.txt, 'i')
+    users = users.filter(user => {
+        return regex.test(user.username)
+    })
+    return users
+}
 
 async function getById(userId) {
-    const user = await storageService.get('user', userId)
+    const user = await storageService.get(STORAGE_KEY_LOGGEDIN_USER, userId)
+    console.log('getbyiDDDD')
     // const user = await httpService.get(`user/${userId}`)
     return user
 }
@@ -78,15 +131,31 @@ async function changeScore(by) {
 
 
 function saveLocalUser(user) {
-    user = {_id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, score: user.score}
+    // user = {_id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, score: user.score}
+    // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    // return user
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
 
 function getLoggedinUser() {
+    // const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    // return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
+function getEmptyUser() {
+    return {
+        username: "",
+        password: "",
+        fullname: "",
+        imgUrl: '',
+        bio: '',
+        following: [],
+        followers: [],
+        savedStoryIds: []
+    }
+}
 
 // ;(async ()=>{
 //     await userService.signup({fullname: 'Puki Norma', username: 'puki', password:'123',score: 10000, isAdmin: false})

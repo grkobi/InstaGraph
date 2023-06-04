@@ -20,11 +20,17 @@
 @import "views/UserDetails";
 
 // Components
-@import "cmps/AppHeader";
+// @import "cmps/AppHeader";
+
+@import "cmps/SideBar";
+@import "cmps/CreateStory";
+@import "cmps/AppContainer";
+@import "cmps/SearchStory";
 @import "cmps/AppFooter";
 @import "cmps/UserMsg";
 @import "cmps/ShoppingCart";
-
+@import "cmps/StoryList";
+@import "cmps/StoryPreview";
 
 
 

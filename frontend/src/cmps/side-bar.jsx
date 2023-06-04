@@ -5,7 +5,7 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { login, logout, signup } from '../store/user.actions.js'
 import { LoginSignup } from './login-signup.jsx'
 
-export function AppHeader() {
+export function SideBar() {
     const user = useSelector(storeState => storeState.userModule.user)
 
     async function onLogin(credentials) {
@@ -34,11 +34,11 @@ export function AppHeader() {
     }
 
     return (
-        <header className="app-header">
-            <nav>
-                {routes.map(route => <NavLink key={route.path} to={route.path}>{route.label}</NavLink>)}
-
-                {user &&
+        <header className="side-bar">
+            <h3 className='instagraph-logo'>Instagraph</h3>
+            <nav>  {routes.map(route => <NavLink className="nav-btn" key={route.path} to={route.path}>{route.label}</NavLink>)} 
+            
+                {/* {user &&
                     <span className="user-info">
                         <Link to={`user/${user._id}`}>
                             {user.imgUrl && <img src={user.imgUrl} />}
@@ -52,9 +52,8 @@ export function AppHeader() {
                     <section className="user-info">
                         <LoginSignup onLogin={onLogin} onSignup={onSignup} />
                     </section>
-                }
+                } */}
             </nav>
-            <h1>My App</h1>
         </header>
     )
 }
