@@ -3,7 +3,7 @@ import { storyService } from "../services/story.service.mock.js";
 import { userService } from "../services/user.service.js";
 import { store } from './store.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import { ADD_STORY, REMOVE_STORY, SET_STORIES, UNDO_REMOVE_STORY, UPDATE_STORY } from "./story.reducer.js";
+import { ADD_STORY, REMOVE_STORY, SET_STORIES, UNDO_REMOVE_STORY, UPDATE_STORY, TOGGLE_LIKE } from "./story.reducer.js";
 import { SET_SCORE } from "./user.reducer.js";
 
 // Action Creators:
@@ -23,6 +23,16 @@ export function getActionUpdateStory(story) {
     return {
         type: UPDATE_STORY,
         story
+    }
+}
+
+export function toggleLike(storyId, user) {
+    return {
+        type: TOGGLE_LIKE,
+        payload: {
+            storyId,
+            user
+        }
     }
 }
 

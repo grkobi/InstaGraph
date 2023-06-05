@@ -14,8 +14,7 @@ export const userService = {
     getById,
     remove,
     update,
-    getEmptyUser,
-    filterUsers
+    getEmptyUser
 }
 
 window.userService = userService
@@ -69,14 +68,14 @@ function getUsers(filterBy = { txt: '' }) {
     // return httpService.get(`user`)
 }
 
-function filterUsers(filterBy, users) {
-    if (!users.length) return
-    const regex = new RegExp(filterBy.txt, 'i')
-    users = users.filter(user => {
-        return regex.test(user.username)
-    })
-    return users
-}
+// function filterUsers(filterBy, users) {
+//     if (!users.length) return
+//     const regex = new RegExp(filterBy.txt, 'i')
+//     users = users.filter(user => {
+//         return regex.test(user.username)
+//     })
+//     return users
+// }
 
 async function getById(userId) {
     const user = await storageService.get(STORAGE_KEY_LOGGEDIN_USER, userId)
@@ -140,7 +139,7 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     // const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
     // return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 

@@ -1,5 +1,5 @@
 import { CreateStory } from './cmps/create-story.jsx'
-import { HomePage } from './pages/home-page.jsx'
+import { HomePage } from './pages/story-index.jsx'
 import { SearchStory } from './cmps/search-story.jsx'
 import { UserDetails } from './pages/user-details.jsx'
 // import { AboutUs } from './pages/about-us.jsx'
@@ -16,14 +16,14 @@ const routes = [
         label: 'Home 🏠',
     },
     {
-        path: 'create',
-        component: <CreateStory />,
-        label: 'Create story',
-    },
-    {
         path: 'search',
         component: <SearchStory />,
-        label: 'Search story',
+        label: 'Search',
+    },
+    {
+        path: 'create',
+        component: <CreateStory />,
+        label: 'Create',
     },
 
     {

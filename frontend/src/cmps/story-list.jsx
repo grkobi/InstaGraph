@@ -7,11 +7,10 @@ export function StoryList({ stories, onRemoveStory}) {
     return <ul className="story-list grid">
         {stories.map(story =>
             <li key={story._id}>
-                <StoryPreview story={story}/>
+                <StoryPreview story={story} onRemoveStory={onRemoveStory}/>
                 <div className="options">
-                    <Link className="btn" to={`/post/details/${story._id}`}><i className="fa-solid fa-info"></i></Link>
-                    <Link className="btn" to={`/post/edit/${story._id}`}><i className="fa-solid fa-pen-to-square"></i></Link>
-                    <button className="btn" onClick={() => { onRemoveStory(story._id) }}><i className="fa-solid fa-trash-can">Remove post</i></button>
+                    <Link className="btn" to={`/post/details/${story._id}`}></Link>
+                    <Link className="btn" to={`/post/edit/${story._id}`}></Link>
                 </div>
             </li>)}
     </ul>

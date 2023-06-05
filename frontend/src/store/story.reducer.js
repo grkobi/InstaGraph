@@ -3,6 +3,7 @@ export const REMOVE_STORY = 'REMOVE_STORY'
 export const ADD_STORY = 'ADD_STORY'
 export const UPDATE_STORY = 'UPDATE_STORY'
 export const UNDO_REMOVE_STORY = 'UNDO_REMOVE_STORY'
+export const TOGGLE_LIKE = 'TOGGLE_LIKE'
 
 const initialState = {
     stories: [],
@@ -13,7 +14,6 @@ const initialState = {
 export function storyReducer(state = initialState, action) {
     var newState = state
     var stories
-    // var instaPostt
     switch (action.type) {
         case SET_STORIES:
             newState = { ...state, stories: action.stories }
@@ -31,8 +31,25 @@ export function storyReducer(state = initialState, action) {
             newState = { ...state, stories }
             break
         case UNDO_REMOVE_STORY:
-            if (state.lastRemovedInstaPost) {
+            if (state.lastRemovedStory) {
                 newState = { ...state, stories: [...state.stories, state.lastRemovedInstaPost], lastRemovedInstaPost: null }
+            }
+            break
+        case TOGGLE_LIKE:
+            const user = action.payload.user
+            const storyId = action.payload.storyId
+            const storyIndex = state.stories.findIndex((story) => story._id === storyId)
+            const currentLikes = state.stories[storyIndex].likedBy
+            const isLiked = currentLikes.some((u) => u._id === user._id)
+            const likedBy = isLiked ? currentLikes.filter((u) => u._id !== user._id) : [...currentLikes, user]
+            const story = { ...state.stories[storyIndex], likedBy }
+            newState = {
+                ...state,
+                stories: [
+                    ...state.stories.slice(0, storyIndex),
+                    story,
+                    ...state.stories.slice(storyIndex+1)
+                ]
             }
             break
         default:

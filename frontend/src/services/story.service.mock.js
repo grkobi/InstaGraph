@@ -23,7 +23,7 @@ imgUrl: "https://cdn.vox-cdn.com/thumbor/FrEVUUm1BKT_TKJJ8VaDhLlGKHI=/0x0:4800x3
 by: {
   _id: "u101",
   fullname: "Ulash Ulashi",
-  imgUrl: "http://some-img"
+  imgUrl: "https://www.apetogentleman.com/wp-content/uploads/2018/06/top-male-models.jpg"
 },
 loc: { // Optional
   lat: 11.11, 
@@ -77,7 +77,7 @@ imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbKsAnyOq3KP3vD_f
 by: {
   _id: "u101",
   fullname: "Ulash Ulashi",
-  imgUrl: "http://some-img"
+  imgUrl: "https://www.apetogentleman.com/wp-content/uploads/2018/06/top-male-models.jpg", 
 },
 loc: { // Optional
   lat: 11.11, 
@@ -167,8 +167,14 @@ async function addStoriesMsg(storyId, txt) {
 
 function getEmptyStories() {
     return {
-        vendor: 'Susita-' + (Date.now() % 1000),
-        price: utilService.getRandomIntInclusive(1000, 9000),
+      id: "",
+      txt: "",
+      imgUrl: "",
+      by: {
+          _id: "",
+          fullname: "",
+          imgUrl: ""
+      },
     }
 }
 

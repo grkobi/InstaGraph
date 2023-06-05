@@ -1,22 +1,24 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { loadStories, addStory, updateStory, removeStory } from '../store/story.actions.js'
-
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { storyService } from '../services/story.service.js'
+import { StoryList } from '../cmps/story-list.jsx'
+import { loadUsers } from '../store/user.actions.js';
 
-export function StoryIndex() {
-
-    const story = useSelector(storeState => storeState.storyModule.story)
+export function HomePage() {
+    const user = useSelector(storeState => storeState.userModule.user)
+    const stories = useSelector(storeState => storeState.storyModule.stories)
 
     useEffect(() => {
         loadStories()
+        loadUsers()
     }, [])
 
     async function onRemoveStory(storyId) {
         try {
             await removeStory(storyId)
-            showSuccessMsg('Story removed')
+            showSuccessMsg('story removed')
         } catch (err) {
             showErrorMsg('Cannot remove story')
         }
@@ -51,26 +53,17 @@ export function StoryIndex() {
 
     return (
         <div>
-            <h3>Stories App</h3>
             <main>
-                <button onClick={onAddStory}>Add Story </button>
-                <ul className="story-list">
-                    {story.map(story =>
-                        <li key={story._id}>
-                            {/* <h4>{story.vendor}</h4>
-                            <h1>⛐</h1>
-                            <p>Price: <span>${story.price.toLocaleString()}</span></p>
-                            <p>Owner: <span>{story.owner && story.owner.fullname}</span></p> */}
-                            <div>
-                                <button onClick={() => { onRemoveStory(story._id) }}>x</button>
-                                <button onClick={() => { onUpdateStory(story) }}>Edit</button>
-                            </div>
-
-                            <button onClick={() => { onAddStoryMsg(story) }}>Add story msg</button>
-                        </li>)
-                    }
-                </ul>
+                <div className='content'>
+                    <StoryList stories={stories} onRemoveStory={onRemoveStory} />
+                </div>
             </main>
-        </div>
+{/* 
+            <div className='suggestions'>
+                        <li>Puki</li>
+                        <li>John</li>
+                        <li>Muki</li>
+                    </div> */}
+                </div>
     )
 }

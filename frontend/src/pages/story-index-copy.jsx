@@ -1,24 +1,22 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { loadStories, addStory, updateStory, removeStory } from '../store/story.actions.js'
+
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { storyService } from '../services/story.service.js'
-import { StoryList } from '../cmps/story-list.jsx'
-import { loadUsers } from '../store/user.actions';
 
-export function HomePage() {
-    const user = useSelector(storeState => storeState.userModule.user)
-    const stories = useSelector(storeState => storeState.storyModule.stories)
+export function StoryIndex() {
+
+    const story = useSelector(storeState => storeState.storyModule.story)
 
     useEffect(() => {
         loadStories()
-        loadUsers()
     }, [])
 
     async function onRemoveStory(storyId) {
         try {
             await removeStory(storyId)
-            showSuccessMsg('story removed')
+            showSuccessMsg('Story removed')
         } catch (err) {
             showErrorMsg('Cannot remove story')
         }
@@ -53,19 +51,25 @@ export function HomePage() {
 
     return (
         <div>
+            <h3>Stories App</h3>
             <main>
-                {/* <button onClick={onAddStory}>Add story</button> */}
-                <div className='content'>
-                    <StoryList stories={stories} onRemoveStory={onRemoveStory} />
-                </div>
-                {/* <h4>{story.vendor}</h4>
+                <button onClick={onAddStory}>Add Story </button>
+                <ul className="story-list">
+                    {story.map(story =>
+                        <li key={story._id}>
+                            {/* <h4>{story.vendor}</h4>
+                            <h1>⛐</h1>
                             <p>Price: <span>${story.price.toLocaleString()}</span></p>
-                            <p>Owner: <span>{story.owner && story.owner.fullname}</span></p>
+                            <p>Owner: <span>{story.owner && story.owner.fullname}</span></p> */}
                             <div>
                                 <button onClick={() => { onRemoveStory(story._id) }}>x</button>
                                 <button onClick={() => { onUpdateStory(story) }}>Edit</button>
                             </div>
-                            <button onClick={() => { onAddStoryMsg(story) }}>Add story msg</button> */}
+
+                            <button onClick={() => { onAddStoryMsg(story) }}>Add story msg</button>
+                        </li>)
+                    }
+                </ul>
             </main>
         </div>
     )
