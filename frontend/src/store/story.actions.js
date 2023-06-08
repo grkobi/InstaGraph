@@ -26,15 +26,27 @@ export function getActionUpdateStory(story) {
     }
 }
 
-export function toggleLike(storyId, user) {
-    return {
-        type: TOGGLE_LIKE,
-        payload: {
-            storyId,
-            user
-        }
+export async function toggleLike(story, user) {
+    try {
+        // console.log('storyid', storyId)
+        await storyService.saveToggleLike(story, user)
+        store.dispatch({
+            type: TOGGLE_LIKE, payload: { story, user }
+        })
+    } catch (err) {
+        console.log('Cannot add like', err)
+        throw err
     }
 }
+
+// return {
+//     type: TOGGLE_LIKE,
+//     payload: {
+//         storyId,
+//         user
+//     }
+// }
+
 
 export async function loadStories() {
     try {

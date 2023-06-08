@@ -2,6 +2,7 @@ import { CreateStory } from './cmps/create-story.jsx'
 import { HomePage } from './pages/story-index.jsx'
 import { SearchStory } from './cmps/search-story.jsx'
 import { UserDetails } from './pages/user-details.jsx'
+import {Notification} from './cmps/notification.jsx'
 // import { AboutUs } from './pages/about-us.jsx'
 // import { storyIndex } from './pages/story-index.jsx'
 // import { ReviewIndex } from './pages/review-index.jsx'
@@ -24,6 +25,12 @@ const routes = [
         path: 'create',
         component: <CreateStory />,
         label: 'Create',
+    },
+
+    {
+        path: 'notifications',
+        component: <Notification />,
+        label: 'Notifications',
     },
 
     {

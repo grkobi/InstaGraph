@@ -5,6 +5,7 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { storyService } from '../services/story.service.js'
 import { StoryList } from '../cmps/story-list.jsx'
 import { loadUsers } from '../store/user.actions.js';
+import { userService } from '../services/user.service.js'
 
 export function HomePage() {
     const user = useSelector(storeState => storeState.userModule.user)
@@ -58,12 +59,12 @@ export function HomePage() {
                     <StoryList stories={stories} onRemoveStory={onRemoveStory} />
                 </div>
             </main>
-{/* 
+            {/* 
             <div className='suggestions'>
                         <li>Puki</li>
                         <li>John</li>
                         <li>Muki</li>
                     </div> */}
-                </div>
+        </div>
     )
 }

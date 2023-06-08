@@ -37,18 +37,19 @@ export function storyReducer(state = initialState, action) {
             break
         case TOGGLE_LIKE:
             const user = action.payload.user
-            const storyId = action.payload.storyId
-            const storyIndex = state.stories.findIndex((story) => story._id === storyId)
-            const currentLikes = state.stories[storyIndex].likedBy
+            const story = action.payload.story
+            // const storyId = action.payload.storyId
+            const storyIndex = state.stories.findIndex((s) => s._id === story._id)
+            const currentLikes = story.likedBy
             const isLiked = currentLikes.some((u) => u._id === user._id)
             const likedBy = isLiked ? currentLikes.filter((u) => u._id !== user._id) : [...currentLikes, user]
-            const story = { ...state.stories[storyIndex], likedBy }
+            const newStory = { ...story, likedBy }
             newState = {
                 ...state,
                 stories: [
                     ...state.stories.slice(0, storyIndex),
-                    story,
-                    ...state.stories.slice(storyIndex+1)
+                    newStory,
+                    ...state.stories.slice(storyIndex + 1)
                 ]
             }
             break

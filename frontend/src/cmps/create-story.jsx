@@ -4,15 +4,15 @@ import { storyService } from "../services/story.service";
 
 export function CreateStory(story) {
     // return <h5 className="create-story">Hello from create</h5>
-    const [newStory, SetNewStory] = useState(storyService.getEmptyStory())
+    const [createdStory, SetCreatedStory] = useState(storyService.getEmptyStory())
 
     function onUpload(imgUrl) {
-        SetNewStory(prevState => ({ ...prevState, imgUrl }))
+        SetCreatedStory(prevState => ({ ...prevState, imgUrl }))
     }
 
     useEffect(() => {
-        console.log(newStory)
-    }, [newStory])
+        console.log(createdStory)
+    }, [createdStory])
 
     return (
         <div>
